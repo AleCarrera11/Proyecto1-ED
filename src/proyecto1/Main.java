@@ -4,6 +4,8 @@
  */
 package proyecto1;
 
+import Interfaces.Menu;
+
 /**
  *Esta clase maneja el main del programa
  * @author alejandra
