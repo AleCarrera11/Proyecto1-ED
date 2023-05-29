@@ -1,12 +1,17 @@
+package Estructuras;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package proyecto1;
+
+
+import Estructuras.Nodo;
 
 /**
  *
  * @author usuario
+ * @param <T>
  */
 public class List <T> {
     private Nodo head;
@@ -75,7 +80,7 @@ public class List <T> {
     * Metodo que permite insertar al final de una lista
     * @param data representa la informacion de que se le quiere agregar al nodo
     */
-    public void insertLast(T data){
+    public void insertLast(String data, int parseInt){
         Nodo nodo = new Nodo(data);
         if (isEmpty()){
             setHead(nodo);
@@ -114,8 +119,8 @@ public class List <T> {
     /**
     * Eliminar Inicio
     * Metodo que permite eliminar el primer nodo de la lista
-    * @param data representa la informacion de que se le quiere agregar al nodo
-    * @param position representa el indice en donde se desea agregar el nodo
+    * representa la informacion de que se le quiere agregar al nodo
+    * representa el indice en donde se desea agregar el nodo
     */
 
     public void deleteFirst(){
@@ -132,8 +137,8 @@ public class List <T> {
     /**
     * Eliminar final 
     * Metodo que permite eliminar el elemento final de una lista
-    * @param data representa la informacion de que se le quiere agregar al nodo
-    * @param position representa el indice en donde se desea agregar el nodo
+    * representa la informacion de que se le quiere agregar al nodo
+    * representa el indice en donde se desea agregar el nodo
     */
 
     public void deleteLast(){
