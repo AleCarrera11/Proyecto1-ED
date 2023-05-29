@@ -5,16 +5,17 @@
 package proyecto1;
 
 /**
- *
- * @author usuario
+ *Esta clase maneja el main del programa
+ * @author alejandra
  */
 public class Main {
 
     /**
-     * @param args the command line arguments
+     * Main del programa
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Menu menu = new Menu();
+        menu.setVisible(true);
     }
     
 }
