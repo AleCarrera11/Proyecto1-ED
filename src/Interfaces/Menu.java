@@ -4,17 +4,34 @@
  */
 package Interfaces;
 
+import Estructuras.Grafo;
+import Clases.Global;
+import Clases.txt;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /**
  *
  * @author alejandra, isabela y adrian
  */
 public class Menu extends javax.swing.JFrame {
-
+    public String n;
+    public String texto;
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+//        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -47,7 +64,7 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/redes.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 0, 550, 360));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 550, 360));
 
         archivos.setText("Archivos");
         archivos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -61,6 +78,11 @@ public class Menu extends javax.swing.JFrame {
         archivos.add(cargarArchivo);
 
         archivoDefault.setText("Archivo Default");
+        archivoDefault.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                archivoDefaultActionPerformed(evt);
+            }
+        });
         archivos.add(archivoDefault);
 
         actualizarArchivo.setText("Actualizar archivo");
@@ -97,8 +119,17 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarArchivoActionPerformed
-        // TODO add your handling code here:
+        Grafo grafo = openFile();
+        if (grafo != null){
+            grafo.readRelation();
+            grafo.printMatrix();
+            Global.setGrafo(grafo);
+        }
     }//GEN-LAST:event_cargarArchivoActionPerformed
+
+    private void archivoDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivoDefaultActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_archivoDefaultActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,4 +175,40 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu mostrarRelaciones;
     private javax.swing.JMenu puentes;
     // End of variables declaration//GEN-END:variables
+
+    private Grafo openFile() {
+    String aux = "";   
+    String text = "";
+    Grafo grafo = null;
+    try
+    {
+     JFileChooser jf = new JFileChooser();
+     jf.showOpenDialog(this);
+     File file = jf.getSelectedFile();
+     if(file!=null)
+     {     
+        FileReader fr = new FileReader(file);
+        BufferedReader br = new BufferedReader(fr);
+        while((aux=br.readLine())!=null)
+        {
+           text += aux + "\n";
+        }
+           br.close();
+           JOptionPane.showMessageDialog(null,"El archivo se abrió exitosamente!");
+      }
+        grafo = txt.checkFile(text);
+        Global.setGrafo(grafo);
+        if (grafo != null){
+            Ventana1 v1 = new Ventana1();
+            v1.setVisible(true);
+            return grafo;
+        }
+     }
+     catch(IOException ex)
+     {
+       JOptionPane.showMessageDialog(null,ex+"" +
+             "\nNo se ha encontrado el archivo");
+      }
+    return grafo;
+    }
 }
