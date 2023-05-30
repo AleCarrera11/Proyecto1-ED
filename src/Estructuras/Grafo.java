@@ -9,16 +9,16 @@ package Estructuras;
  * @author usuario
  */
 public class Grafo {
-    private List <user> vertices;
+    private List <User> vertices;
     private int[][] matriz;
     private int nVertices;
     private int maxVertices;
     private String[] relation;
     private int nRelation;
 
-    public Grafo( int max, List<user> user, String[] relation) {
-        this.vertices = user;
-        this.nVertices = user.getLength();
+    public Grafo( int max, List<User> User, String[] relation) {
+        this.vertices = User;
+        this.nVertices = User.getLength();
         this.maxVertices = max;
         this.relation = relation;
         this.nRelation = 0;
@@ -39,7 +39,7 @@ public class Grafo {
         this.nRelation = nRelation;
     }
     
-    public List<user> getVertices(){
+    public List<User> getVertices(){
         return vertices;
     }
         
@@ -59,7 +59,7 @@ public class Grafo {
         return relation;
     }
     
-    public void setVertices(List<user> vertices) {
+    public void setVertices(List<User> vertices) {
         this.vertices = vertices;
     }
     
