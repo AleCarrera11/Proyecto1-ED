@@ -4,6 +4,8 @@
  */
 package Estructuras;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author usuario
@@ -79,5 +81,44 @@ public class Grafo {
         this.relation = relation;
     }
     
+    /**
+    *Anadir un Relacion 
+    * Metodo que pertmite agregar las rutas entre cada almacen
+    * @param r Represeta un string que contriene los vertices y el peso de la ruta que se quiere agregar
+    */
+    public void addRelation(String r){
+        String[] temp = r.split(",");
+        int a = Integer. parseInt(temp[0]);
+        int b = Integer. parseInt(temp[1]);
+        if (a != -1 && b != -1){
+            matriz[a][b] = Integer.valueOf(temp[temp.length - 1]);
+            nRelation++;
+        }else{
+            JOptionPane.showMessageDialog(null,"No fueron encontrada la relación");  
+        }
+    }
+    
+    /**
+    *Leer una relación 
+    * Metodo que pertmite Leer u agregar las rutas que viene del txt
+    */
+    public void readRelation(){
+        for(int i=1; i< relation.length; i++){
+            addRelation(relation[i]);           
+        }
+    }
+    
+    /**
+    * Imprimri Matriz
+    * Metodo que permite Imprimir la matriz de adyacencia
+    */
+    public void printMatrix(){
+        for (int i = 0; i < nVertices; i++){
+            for (int j = 0; j < nVertices; j++){
+                System.out.print(matriz[i][j]);
+            }
+            System.out.println("");
+        }
+    }
     
 }
