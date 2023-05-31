@@ -6,14 +6,17 @@ package Clases;
 
 import Estructuras.Grafo;
 import Estructuras.List;
+import Estructuras.User;
+
 /**
- *
- * @author usuario
+ * Esta clase maneja algunos atributos que son necesarios acceder múltiples veces a lo largo del proyecto
+ * @author alejandra
  */
+
 public class Global {
     private static Grafo grafo;
     private static int path = 0;
-    private static List<user> user = new List<user>();
+    private static List<User> user = new List<User>();
     private static String[] relation = new String[0];
     
     /**
@@ -43,15 +46,21 @@ public class Global {
     public static void setPath(int path) {
         Global.path = path;
     }
-
-    public static List<user> getUser() {
+    
+    /**
+     *  @return user que es la lista de usuarios en el grafo
+     */
+    public static List<User> getUser() {
         return user;
     }
 
-    public static void setUser(List<user> user) {
+    public static void setUser(List<User> user) {
         Global.user = user;
     }
-
+    
+    /**
+     *  @return relation que es el array de las rutas del grafo
+     */
     public static String[] getRelation() {
         return relation;
     }

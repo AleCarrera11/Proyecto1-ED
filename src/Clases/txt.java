@@ -10,7 +10,6 @@ import Estructuras.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
@@ -20,6 +19,42 @@ import javax.swing.JOptionPane;
  * @author alejandra, isabela
  */
 public class txt {
+    
+    public static void writeTxt(Grafo grafo){
+       List<User> info = grafo.getVertices();
+       int[][] matriz = grafo.getMatriz();
+       String userTxt = "Usuarios\n";
+        if(!info.isEmpty()){
+            for (int i = 0; i < info.getLength(); i++){
+                userTxt += info.getElement(i).getId() + "," + info.getElement(i).getUser() + "\n";
+            }
+            String relation = "Relaciones\n";
+            for (int i = 0; i < info.getLength(); i++){
+                for(int j = 0; j < info.getLength(); j++){
+                    if(matriz[i][j] != 0){
+                        String a = grafo.getNameUser(i);
+                        String b = grafo.getNameUser(j);
+                        if(!"".equals(a)&& !"".equals(b) ){
+                            relation += a + "," + b + "," + matriz[i][j] + "\n";
+                        }
+                    }
+                }
+            
+            }
+            userTxt += relation;
+            
+        }
+        
+        try{
+            PrintWriter pw = new PrintWriter("test\\usuario.txt");
+            pw.print(userTxt); // escribe
+            pw.close();
+            JOptionPane.showMessageDialog(null,"Guardado realizado exitosamente");
+        }catch(Exception err){
+            JOptionPane.showMessageDialog(null,"Error");
+        }
+    } 
+    
         
     public static Grafo readTxt(){
         String line;
@@ -63,10 +98,10 @@ public class txt {
     * @return grafo contiene la información de almacenes y rutas, que fue leído del txt
     */
     public static Grafo checkFile(String infoTxt){
-        List<user> user = new List<user>();
+        List<User> user = new List<User>();
         String[] relation = new String[0];
         Global.setRelation(relation);
-        Global.getUser(user);
+        Global.setUser(user);
         Grafo grafo = null;
         try {
             if(!"".equals(infoTxt)){
@@ -74,21 +109,25 @@ public class txt {
                 String[] infoSplit = infoTxt.split("\n");
                 if (infoSplit[0].equals("Usuarios")){
                     for (int i=1; i < (infoSplit.length - 1); i++){
+                        System.out.println("Hola1");
                         if (!infoSplit[i].equals("Relaciones")){
+                            System.out.println("Hola2");
                             User tempUser = readUser(infoSplit[i]);
                             user.insertLast(tempUser);
                         }else{
-                            relation = infoSplit[i+1].split(",");
-                            break;
+                              relation = infoSplit[i+1].split(",");
+                              break;
                         }
                     }
                 Global.setRelation(relation);
                 Global.setUser(user); 
                 grafo = new Grafo(user.getLength(), user, relation);
                 }  
+            
             }
             if (Global.getRelation().length != 0 && !Global.getUser().isEmpty()){
                 JOptionPane.showMessageDialog(null,"El archivo cumple con la estructura necesaria!");
+                grafo.printMatrix();
                 return grafo;
             } else {
                 JOptionPane.showMessageDialog(null, "\nEl archivo no cumple con la estructura necesaria, intenta otro archivo o usa el archivo default");

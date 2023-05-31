@@ -11,14 +11,14 @@ import javax.swing.JOptionPane;
  * @author usuario
  */
 public class Grafo {
-    private List <user> vertices;
+    private List <User> vertices;
     private int[][] matriz;
     private int nVertices;
     private int maxVertices;
     private String[] relation;
     private int nRelation;
 
-    public Grafo( int max, List<user> user, String[] relation) {
+    public Grafo( int max, List<User> user, String[] relation) {
         this.vertices = user;
         this.nVertices = user.getLength();
         this.maxVertices = max;
@@ -41,7 +41,7 @@ public class Grafo {
         this.nRelation = nRelation;
     }
     
-    public List<user> getVertices(){
+    public List<User> getVertices(){
         return vertices;
     }
         
@@ -61,7 +61,7 @@ public class Grafo {
         return relation;
     }
     
-    public void setVertices(List<user> vertices) {
+    public void setVertices(List<User> vertices) {
         this.vertices = vertices;
     }
     
@@ -82,30 +82,76 @@ public class Grafo {
     }
     
     /**
-    *Anadir un Relacion 
-    * Metodo que pertmite agregar las rutas entre cada almacen
-    * @param r Represeta un string que contriene los vertices y el peso de la ruta que se quiere agregar
+    *Anadir un Relación 
+    * Metodo que pertmite agregar las relaciones entre cada usuario
+    * @param r Represeta un string que contriene los vertices y el tiempo de la relacione que se quiere agregar
     */
-    public void addRelation(String r){
+    public void addRelation (String r){
         String[] temp = r.split(",");
-        int a = Integer. parseInt(temp[0]);
-        int b = Integer. parseInt(temp[1]);
+        int a = getIndex(temp[0].toUpperCase());
+        int b = getIndex(temp[1].toUpperCase());
         if (a != -1 && b != -1){
             matriz[a][b] = Integer.valueOf(temp[temp.length - 1]);
             nRelation++;
         }else{
-            JOptionPane.showMessageDialog(null,"No fueron encontrada la relación");  
+            JOptionPane.showMessageDialog(null,"No fueron encontrados los usuarios");  
         }
     }
     
     /**
-    *Leer una relación 
+    * Lista de ID
+    * Metodo que pertmite tener una lista con los ID de cada usuario
+    * @return Retorna un Array con los id de los almacenes
+    */
+    public String[] nameUser(){
+        String[] names = new String[nVertices];
+        for(int i = 0; i < (vertices.getLength()); i++){
+            names[i] = vertices.getElement(i).getId();
+        }
+        return names;
+    }
+    
+    /**
+    *Leer un Relacion
     * Metodo que pertmite Leer u agregar las rutas que viene del txt
     */
     public void readRelation(){
-        for(int i=1; i< relation.length; i++){
+        for(int i=0; i< relation.length; i++){
             addRelation(relation[i]);           
         }
+    }
+    
+    /**
+    * Indice Usuario
+    * Metodo que permite obtener el indice en el que se encuentra un usuario
+    * @param word Represeta el ID del usuario del cual se desea obtener indice
+    * @return retorna el index del usuario 
+    */
+    public int getIndex(String word){
+        String[] name = nameUser();
+        for(int i = 0; i < name.length; i++){
+            if(name[i].equals(word)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    
+    /**
+    * Nombre Usuario
+    * Metodo que permite obtener el Nombre de un usuario, Ubicado en una posicion en espicifico
+    * @param index Represeta la posicion del almacen del cual se desa obtener el nombre
+    * @return retorna el nombre del almacen 
+    */
+    public String getNameUser(int index){
+        String a = "";
+        for(int i = 0; i < vertices.getLength(); i++){
+            if(index == i){
+                a += vertices.getElement(i).getId();
+            }
+        }
+        return a ;
     }
     
     /**
@@ -120,5 +166,6 @@ public class Grafo {
             System.out.println("");
         }
     }
+    
     
 }

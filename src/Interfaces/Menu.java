@@ -31,7 +31,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-//        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -128,7 +128,10 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_cargarArchivoActionPerformed
 
     private void archivoDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivoDefaultActionPerformed
-        // TODO add your handling code here:
+        Grafo grafo = txt.readTxt();
+        grafo.readRelation();
+        grafo.printMatrix();
+//        Global.setGrafo(grafo);
     }//GEN-LAST:event_archivoDefaultActionPerformed
 
     /**
