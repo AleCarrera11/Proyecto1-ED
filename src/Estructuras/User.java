@@ -6,7 +6,7 @@ package Estructuras;
 
 /**
  *
- * @author soyis
+ * @author usuario
  */
 public class User {
     private String id;
@@ -32,6 +32,5 @@ public class User {
     public void setUser(String user) {
         this.user = user;
     }
-    
-    
+
 }

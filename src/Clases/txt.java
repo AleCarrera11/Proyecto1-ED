@@ -35,7 +35,7 @@ public class txt {
                         String a = grafo.getNameUser(i);
                         String b = grafo.getNameUser(j);
                         if(!"".equals(a)&& !"".equals(b) ){
-                            relation += a + "," + b + "," + matriz[i][j] + "\n";
+                            relation += a + ", " + b + ", " + matriz[i][j] + "\n";
                         }
                     }
                 }
@@ -90,6 +90,7 @@ public class txt {
         User user = new User(data[0], data[1]);
         return user;
     }
+    
   
      /**
     * Este método revisa que el string de la información cumpla con los requisitos de txt.
@@ -106,28 +107,27 @@ public class txt {
         try {
             if(!"".equals(infoTxt)){
                 System.out.println("Hola");
-                String[] infoSplit = infoTxt.split("\n");
-                if (infoSplit[0].equals("Usuarios")){
-                    for (int i=1; i < (infoSplit.length - 1); i++){
-                        System.out.println("Hola1");
-                        if (!infoSplit[i].equals("Relaciones")){
-                            System.out.println("Hola2");
-                            User tempUser = readUser(infoSplit[i]);
-                            user.insertLast(tempUser);
-                        }else{
-                              relation = infoSplit[i+1].split(",");
-                              break;
-                        }
-                    }
-                Global.setRelation(relation);
+                String[] infoSplit = infoTxt.split("Relaciones\n");
+                String[] userInfo = infoSplit[0].split("\n");
+                System.out.println(userInfo.length);
+                String[] relationInfo = infoSplit[1].split("\n");
+                for (int i=1; i < (userInfo.length ); i++){
+                    User tempUser = readUser(userInfo[i]);
+                    user.insertLast(tempUser);
+                
+                }                        
+                Global.setRelation(relationInfo);
                 Global.setUser(user); 
-                grafo = new Grafo(user.getLength(), user, relation);
-                }  
+                grafo = new Grafo(user.getLength(), user, relationInfo);
+                for (int i = 0; i < (user.getLength() ); i++) {
+                    System.out.println(user.getElement(i).getUser());
+                }
+                  
             
             }
             if (Global.getRelation().length != 0 && !Global.getUser().isEmpty()){
                 JOptionPane.showMessageDialog(null,"El archivo cumple con la estructura necesaria!");
-                grafo.printMatrix();
+//                grafo.printMatrix();
                 return grafo;
             } else {
                 JOptionPane.showMessageDialog(null, "\nEl archivo no cumple con la estructura necesaria, intenta otro archivo o usa el archivo default");
@@ -142,3 +142,15 @@ public class txt {
 }
     
 
+//if (infoSplit[0].equals("Usuarios")){
+//                    for (int i=1; i < (infoSplit.length - 1); i++){
+//                        System.out.println("Hola1");
+//                        if (!infoSplit[i].equals("Relaciones")){
+//                            System.out.println("Hola2");
+//                            User tempUser = readUser(infoSplit[i]);
+//                            user.insertLast(tempUser);
+//                        }else{
+//                              relation = infoSplit[i+1];
+//                              break;
+//                        }
+//                    }
