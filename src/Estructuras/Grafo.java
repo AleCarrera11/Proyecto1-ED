@@ -156,5 +156,86 @@ public class Grafo {
         }
     }
     
+     public int Bfs() {
+        boolean[] visitado = new boolean[nVertices];
+//        List<User> user = getVertices();
+        int contadorIslas = 0;
+        for (int i = 1; i < nVertices; ++i) {
+            if (!visitado[i]) {
+                // Si el vértice no ha sido visitado
+                contadorIslas++;
+                System.out.println("Isla "+ contadorIslas);
+                // Visitar la isla utilizando el recorrido por anchura
+                Queue <Integer> cola = new Queue();
+                visitado[i] = true;
+                cola.enqueue(i);
+                while (!cola.isEmpty()) {
+                    System.out.println(cola.getHead().getData());
+                    int v = cola.despachar();
+                    for (int j = 0; j < nVertices; ++j) {
+                        if (matriz[v][j] != 0 && !visitado[j]) {
+                            visitado[j] = true;
+                            cola.enqueue(j);
+                        }
+                    }
+                }
+            }
+        }
+        return contadorIslas;
+    }
+
+    public boolean[] createListVisited(){
+        boolean[] visited = new boolean[nVertices];
+        for (int i = 0; i < visited.length; i++){
+            visited[i] = false;
+        }
+        return visited;
+    }
     
+    public List<User> dfs(int start, boolean[] visited, List<User> ListUser){
+        int contadorIslas = 0;
+        if(vertices.isEmpty()){
+            JOptionPane.showMessageDialog(null,"No hay informacion almacenada"); 
+        }else if (start < vertices.getLength() && start > -1){
+        visited[start] = true;
+        ListUser.insertLast(vertices.getElement(start));
+        for (int i = 0; i < matriz[start].length; i++) {
+            if (matriz[start][i] != 0 && (!visited[i])) {
+                dfs(i, visited, ListUser);
+                contadorIslas++;
+                    }
+            }
+        return ListUser;
+        }else{
+            JOptionPane.showMessageDialog(null,"Error en el idex!"); 
+        }
+        return null;
+    }
+    
+     
+    public int contarIslasDfs() {
+        boolean[] visitado = new boolean[nVertices];
+        int contadorIslas = 0;
+        for (int i = 0; i < nVertices; ++i) {
+            if (!visitado[i]) {
+                // Si el vértice no ha sido visitado, es una nueva isla
+                contadorIslas++;
+                // Visitar la isla utilizando el recorrido por profundidad
+                Pila pila = new Pila();
+                visitado[i] = true;
+                pila.push(i);
+                while (!pila.isEmpty()) {
+                    pila.pop();
+                    for (int j = 0; j < nVertices; ++j) {
+                        if (matriz[i][j] != 0 && !visitado[j]) {
+                            visitado[j] = true;
+                            pila.push(j);
+                        }
+                    }
+                }
+            }
+        }
+        return contadorIslas;
+    }
 }
+    

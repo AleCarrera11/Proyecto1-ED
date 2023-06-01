@@ -196,7 +196,18 @@ public class List <T> {
         }
     }
         
-       
+    public void Imprimir(){
+        if (!isEmpty()){
+            Nodo aux = head;
+            for (int i = 0; i < length; i++) {
+                System.out.println(aux.getData()+ "");
+                aux = aux.getNext();
+            }
+        }else{
+              System.out.println("Esta lista esta vacía");
+            }
+          
+    }
 }
 
 

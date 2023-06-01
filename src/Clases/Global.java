@@ -16,7 +16,7 @@ import Estructuras.User;
 public class Global {
     private static Grafo grafo;
     private static int path = 0;
-    private static List<User> user = new List<User>();
+    private static List<User> user = new List();
     private static String[] relation = new String[0];
     
     /**
