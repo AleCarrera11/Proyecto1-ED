@@ -6,8 +6,6 @@ package Estructuras;
  */
 
 
-import Estructuras.Nodo;
-
 /**
  *
  * @author usuario
@@ -80,7 +78,7 @@ public class List <T> {
     * Metodo que permite insertar al final de una lista
     * @param data representa la informacion de que se le quiere agregar al nodo
     */
-    public void insertLast(String data, int parseInt){
+    public void insertLast(T data){
         Nodo nodo = new Nodo(data);
         if (isEmpty()){
             setHead(nodo);
@@ -198,7 +196,18 @@ public class List <T> {
         }
     }
         
-       
+    public void Imprimir(){
+        if (!isEmpty()){
+            Nodo aux = head;
+            for (int i = 0; i < length; i++) {
+                System.out.println(aux.getData()+ "");
+                aux = aux.getNext();
+            }
+        }else{
+              System.out.println("Esta lista esta vacía");
+            }
+          
+    }
 }
 
 

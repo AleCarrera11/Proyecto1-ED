@@ -5,20 +5,18 @@
 package Interfaces;
 
 import Estructuras.Grafo;
+import Estructuras.List;
+import Estructuras.User;
 import Clases.Global;
 import Clases.txt;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
+import org.graphstream.graph.*;
+import org.graphstream.graph.implementations.*;
 /**
  *
  * @author alejandra, isabela y adrian
@@ -31,7 +29,7 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-//        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -51,6 +49,7 @@ public class Menu extends javax.swing.JFrame {
         archivoDefault = new javax.swing.JMenuItem();
         actualizarArchivo = new javax.swing.JMenuItem();
         mostrarRelaciones = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mostrarIslas = new javax.swing.JMenu();
         BFS = new javax.swing.JMenuItem();
         DFS = new javax.swing.JMenuItem();
@@ -86,12 +85,26 @@ public class Menu extends javax.swing.JFrame {
         archivos.add(archivoDefault);
 
         actualizarArchivo.setText("Actualizar archivo");
+        actualizarArchivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarArchivoActionPerformed(evt);
+            }
+        });
         archivos.add(actualizarArchivo);
 
         jMenuBar1.add(archivos);
 
         mostrarRelaciones.setText("Mostrar Relaciones");
         mostrarRelaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        jMenuItem1.setText("Mostrar Relaciones");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mostrarRelaciones.add(jMenuItem1);
+
         jMenuBar1.add(mostrarRelaciones);
 
         mostrarIslas.setText("Mostrar Islas");
@@ -124,12 +137,56 @@ public class Menu extends javax.swing.JFrame {
             grafo.readRelation();
             grafo.printMatrix();
             Global.setGrafo(grafo);
+            
         }
     }//GEN-LAST:event_cargarArchivoActionPerformed
 
     private void archivoDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivoDefaultActionPerformed
-        // TODO add your handling code here:
+        Grafo grafo = txt.readTxt();
+        grafo.readRelation();
+        grafo.printMatrix();
+        System.out.println(grafo.Bfs());
+        Global.setGrafo(grafo);
     }//GEN-LAST:event_archivoDefaultActionPerformed
+
+    private void actualizarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarArchivoActionPerformed
+        if (Global.getGrafo()!= null){
+            txt.writeTxt(Global.getGrafo());
+        } else {
+            JOptionPane.showMessageDialog(null,"El grafo no tiene información!");  
+        }
+    }//GEN-LAST:event_actualizarArchivoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        
+        System.setProperty("org.graphstream.ui", "javafx");
+        
+        Graph graph = new SingleGraph("Grafo");
+        List <User> user = Global.getGrafo().getVertices();
+        if (Global.getGrafo()!= null){
+            for (int i = 0; i < Global.getGrafo().getnVertices(); i++) {
+                String a = user.getElement(i).getId();
+                System.out.println(a);
+                graph.addNode(a);
+            }
+            for (int i = 0; i < Global.getGrafo().getMatriz().length; i++) {
+                for (int j = i + 1; j < Global.getGrafo().getMatriz()[i].length; j++) {
+                    if (Global.getGrafo().getMatriz()[i][j] > 0) {
+                        graph.addEdge(Global.getGrafo().getNameUser(i) + Global.getGrafo().getNameUser(j) , Global.getGrafo().getNameUser(i) , Global.getGrafo().getNameUser(j), false).setAttribute("ui.label", Global.getGrafo().getMatriz()[i][j]);
+                    }
+                }
+            }             
+            String css = "node { fill-color: purple; text-size: 20px; text-alignment: center; text-color: black; text-background-mode: rounded-box; text-background-color: white; size: 10px; }" 
+                   + "edge { text-size: 15px; text-alignment: along ; text-background-mode: rounded-box; text-background-color: white; text-visibility-mode: normal; text-offset: 25px, 0px; }";
+            graph.addAttribute("ui.stylesheet", css);
+            graph.addAttribute("ui.quality");
+            graph.addAttribute("ui.antialias");
+            graph.display();
+            
+            }else {
+            JOptionPane.showMessageDialog(null,"El grafo no tiene información!");  
+        }      
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,6 +227,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu editarRelaciones;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mostrarIslas;
     private javax.swing.JMenu mostrarRelaciones;
