@@ -49,7 +49,7 @@ public class Menu extends javax.swing.JFrame {
         archivoDefault = new javax.swing.JMenuItem();
         actualizarArchivo = new javax.swing.JMenuItem();
         mostrarRelaciones = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        MostrarRelaciones = new javax.swing.JMenuItem();
         mostrarIslas = new javax.swing.JMenu();
         BFS = new javax.swing.JMenuItem();
         DFS = new javax.swing.JMenuItem();
@@ -97,13 +97,13 @@ public class Menu extends javax.swing.JFrame {
         mostrarRelaciones.setText("Mostrar Relaciones");
         mostrarRelaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        jMenuItem1.setText("Mostrar Relaciones");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        MostrarRelaciones.setText("Mostrar Relaciones");
+        MostrarRelaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                MostrarRelacionesActionPerformed(evt);
             }
         });
-        mostrarRelaciones.add(jMenuItem1);
+        mostrarRelaciones.add(MostrarRelaciones);
 
         jMenuBar1.add(mostrarRelaciones);
 
@@ -157,7 +157,7 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_actualizarArchivoActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void MostrarRelacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarRelacionesActionPerformed
         
         System.setProperty("org.graphstream.ui", "javafx");
         
@@ -168,16 +168,21 @@ public class Menu extends javax.swing.JFrame {
                 String a = user.getElement(i).getId();
                 System.out.println(a);
                 graph.addNode(a);
+                graph.getNode(a).setAttribute("ui.label", user.getElement(i).getId());
+                graph.getNode(a).setAttribute("ui.style"," text-size: 15px; text-offset: 50px, 0px;");
+               
             }
+            
             for (int i = 0; i < Global.getGrafo().getMatriz().length; i++) {
                 for (int j = i + 1; j < Global.getGrafo().getMatriz()[i].length; j++) {
                     if (Global.getGrafo().getMatriz()[i][j] > 0) {
                         graph.addEdge(Global.getGrafo().getNameUser(i) + Global.getGrafo().getNameUser(j) , Global.getGrafo().getNameUser(i) , Global.getGrafo().getNameUser(j), false).setAttribute("ui.label", Global.getGrafo().getMatriz()[i][j]);
                     }
                 }
-            }             
-            String css = "node { fill-color: purple; text-size: 20px; text-alignment: center; text-color: black; text-background-mode: rounded-box; text-background-color: white; size: 10px; }" 
-                   + "edge { text-size: 15px; text-alignment: along ; text-background-mode: rounded-box; text-background-color: white; text-visibility-mode: normal; text-offset: 25px, 0px; }";
+            }    
+            
+            String css = "node { fill-color: purple; text-size: 20px; size: 20px; }"
+                        + "edge { text-size: 15px; text-offset: 0,-10; }";
             graph.addAttribute("ui.stylesheet", css);
             graph.addAttribute("ui.quality");
             graph.addAttribute("ui.antialias");
@@ -186,7 +191,7 @@ public class Menu extends javax.swing.JFrame {
             }else {
             JOptionPane.showMessageDialog(null,"El grafo no tiene información!");  
         }      
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_MostrarRelacionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,6 +225,7 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem BFS;
     private javax.swing.JMenuItem DFS;
+    private javax.swing.JMenuItem MostrarRelaciones;
     private javax.swing.JMenuItem actualizarArchivo;
     private javax.swing.JMenuItem archivoDefault;
     private javax.swing.JMenu archivos;
@@ -227,7 +233,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu editarRelaciones;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mostrarIslas;
     private javax.swing.JMenu mostrarRelaciones;
