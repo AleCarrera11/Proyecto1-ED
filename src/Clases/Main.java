@@ -4,8 +4,7 @@
  */
 package Clases;
 
-import Interfaces.Menu;
-
+import Interfaces.TXT;
 /**
  *Esta clase maneja el main del programa
  * @author Isabella Pereira, Adrian Lovera, Alejandra Carrera
@@ -17,9 +16,9 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        Menu menu = new Menu();
-        menu.setVisible(true);
-
+          TXT txt = new TXT();
+          txt.setVisible(true);
+          
     }
     
     

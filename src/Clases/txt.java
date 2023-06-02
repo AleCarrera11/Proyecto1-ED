@@ -46,7 +46,7 @@ public class txt {
         }
         
         try{
-            PrintWriter pw = new PrintWriter("test\\usuario.txt");
+            PrintWriter pw = new PrintWriter("test\\usuarios.txt");
             pw.print(userTxt); // escribe
             pw.close();
             JOptionPane.showMessageDialog(null,"Guardado realizado exitosamente");
@@ -96,7 +96,7 @@ public class txt {
     * Este método revisa que el string de la información cumpla con los requisitos de txt.
     * Si lo hace, se hace split de la información y se crea el grafo.
     * @param infoTxt contiene la información rescatada del txt
-    * @return grafo contiene la información de almacenes y rutas, que fue leído del txt
+    * @return grafo contiene la información de usuarios y relaciones de amistad, que fue leído del txt
     */
     public static Grafo checkFile(String infoTxt){
         List<User> user = new List<User>();
@@ -106,10 +106,8 @@ public class txt {
         Grafo grafo = null;
         try {
             if(!"".equals(infoTxt)){
-                System.out.println("Hola");
                 String[] infoSplit = infoTxt.split("Relaciones\n");
                 String[] userInfo = infoSplit[0].split("\n");
-                System.out.println(userInfo.length);
                 String[] relationInfo = infoSplit[1].split("\n");
                 for (int i=1; i < (userInfo.length ); i++){
                     User tempUser = readUser(userInfo[i]);
@@ -119,15 +117,9 @@ public class txt {
                 Global.setRelation(relationInfo);
                 Global.setUser(user); 
                 grafo = new Grafo(user.getLength(), user, relationInfo);
-                for (int i = 0; i < (user.getLength() ); i++) {
-                    System.out.println(user.getElement(i).getUser());
-                }
-                  
-            
             }
             if (Global.getRelation().length != 0 && !Global.getUser().isEmpty()){
                 JOptionPane.showMessageDialog(null,"El archivo cumple con la estructura necesaria!");
-//                grafo.printMatrix();
                 return grafo;
             } else {
                 JOptionPane.showMessageDialog(null, "\nEl archivo no cumple con la estructura necesaria, intenta otro archivo o usa el archivo default");
@@ -141,16 +133,3 @@ public class txt {
     }
 }
     
-
-//if (infoSplit[0].equals("Usuarios")){
-//                    for (int i=1; i < (infoSplit.length - 1); i++){
-//                        System.out.println("Hola1");
-//                        if (!infoSplit[i].equals("Relaciones")){
-//                            System.out.println("Hola2");
-//                            User tempUser = readUser(infoSplit[i]);
-//                            user.insertLast(tempUser);
-//                        }else{
-//                              relation = infoSplit[i+1];
-//                              break;
-//                        }
-//                    }

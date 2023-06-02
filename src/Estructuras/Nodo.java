@@ -5,8 +5,8 @@
 package Estructuras;
 
 /**
- *
- * @author usuario
+ * Clase Nodo 
+ * @author alejandra, isabella, adrian
  */
 public class Nodo <T> {
     private T data;
