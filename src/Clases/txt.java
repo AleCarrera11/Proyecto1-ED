@@ -46,7 +46,7 @@ public class txt {
         }
         
         try{
-            PrintWriter pw = new PrintWriter("test\\usuarios.txt");
+            PrintWriter pw = new PrintWriter("test\\usuario.txt");
             pw.print(userTxt); // escribe
             pw.close();
             JOptionPane.showMessageDialog(null,"Guardado realizado exitosamente");
