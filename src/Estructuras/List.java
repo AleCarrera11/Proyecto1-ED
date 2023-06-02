@@ -7,8 +7,8 @@ package Estructuras;
 
 
 /**
- *
- * @author usuario
+ * Esta clase maneja todo lo relacionado a la formación, busqueda o eliminación de elementos de una lista
+ * @author alejandra, isabella, adrian
  * @param <T>
  */
 public class List <T> {
@@ -16,7 +16,7 @@ public class List <T> {
     private int length;
     
     /**
-    * Constructor de a lista
+    * Constructor de la lista
     */
     public List(){
         this.head = null;
@@ -117,8 +117,6 @@ public class List <T> {
     /**
     * Eliminar Inicio
     * Metodo que permite eliminar el primer nodo de la lista
-    * representa la informacion de que se le quiere agregar al nodo
-    * representa el indice en donde se desea agregar el nodo
     */
 
     public void deleteFirst(){
@@ -135,8 +133,6 @@ public class List <T> {
     /**
     * Eliminar final 
     * Metodo que permite eliminar el elemento final de una lista
-    * representa la informacion de que se le quiere agregar al nodo
-    * representa el indice en donde se desea agregar el nodo
     */
 
     public void deleteLast(){
@@ -195,8 +191,12 @@ public class List <T> {
             }
         }
     }
-        
-    public void Imprimir(){
+    
+    /**
+    * Imprimir lista
+    * Metodo que permite Imprimir la lista
+    */
+    public void imprimir(){
         if (!isEmpty()){
             Nodo aux = head;
             for (int i = 0; i < length; i++) {

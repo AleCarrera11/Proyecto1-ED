@@ -17,8 +17,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.graphstream.graph.*;
 import org.graphstream.graph.implementations.*;
+import org.graphstream.ui.view.Viewer;
 /**
- *
+ * Esta clase contiene el menú de la interfaz gráfica y maneja todas las funcionalidades de este
  * @author alejandra, isabela y adrian
  */
 public class Menu extends javax.swing.JFrame {
@@ -42,7 +43,9 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         archivos = new javax.swing.JMenu();
         cargarArchivo = new javax.swing.JMenuItem();
@@ -62,8 +65,20 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/redes.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 550, 360));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Proyecto EDD (2).png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -10, 570, 340));
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("BeConnected.");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 370));
 
         archivos.setText("Archivos");
         archivos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -98,6 +113,7 @@ public class Menu extends javax.swing.JFrame {
         mostrarRelaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         MostrarRelaciones.setText("Mostrar Relaciones");
+        MostrarRelaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         MostrarRelaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MostrarRelacionesActionPerformed(evt);
@@ -111,9 +127,19 @@ public class Menu extends javax.swing.JFrame {
         mostrarIslas.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         BFS.setText("Recorrido por anchura");
+        BFS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BFSActionPerformed(evt);
+            }
+        });
         mostrarIslas.add(BFS);
 
         DFS.setText("Recorrido por profundidad");
+        DFS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DFSActionPerformed(evt);
+            }
+        });
         mostrarIslas.add(DFS);
 
         jMenuBar1.add(mostrarIslas);
@@ -130,25 +156,29 @@ public class Menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Este método lee el archivo txt del proyecto, para poder crear el grafo
+     */
     private void cargarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarArchivoActionPerformed
         Grafo grafo = openFile();
         if (grafo != null){
             grafo.readRelation();
-            grafo.printMatrix();
             Global.setGrafo(grafo);
             
         }
     }//GEN-LAST:event_cargarArchivoActionPerformed
-
+    /**
+     * Este método llama a la función que leerá la información del txt
+     */
     private void archivoDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archivoDefaultActionPerformed
         Grafo grafo = txt.readTxt();
         grafo.readRelation();
-        grafo.printMatrix();
-        System.out.println(grafo.Bfs());
         Global.setGrafo(grafo);
     }//GEN-LAST:event_archivoDefaultActionPerformed
-
+    /**
+     * Este método llama a la función que reescribira la información del txt, actualizandola
+     */
     private void actualizarArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarArchivoActionPerformed
         if (Global.getGrafo()!= null){
             txt.writeTxt(Global.getGrafo());
@@ -156,7 +186,9 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"El grafo no tiene información!");  
         }
     }//GEN-LAST:event_actualizarArchivoActionPerformed
-
+    /**
+     * Este método muestra graficamente las islas del grafo, con sus nodos, aristas y etiquetas
+     */
     private void MostrarRelacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarRelacionesActionPerformed
         
         System.setProperty("org.graphstream.ui", "javafx");
@@ -166,10 +198,9 @@ public class Menu extends javax.swing.JFrame {
         if (Global.getGrafo()!= null){
             for (int i = 0; i < Global.getGrafo().getnVertices(); i++) {
                 String a = user.getElement(i).getId();
-                System.out.println(a);
                 graph.addNode(a);
                 graph.getNode(a).setAttribute("ui.label", user.getElement(i).getId());
-                graph.getNode(a).setAttribute("ui.style"," text-size: 15px; text-offset: 50px, 0px;");
+                graph.getNode(a).setAttribute("ui.style"," text-size: 20px; text-offset: 50px, 0px;");
                
             }
             
@@ -181,17 +212,36 @@ public class Menu extends javax.swing.JFrame {
                 }
             }    
             
-            String css = "node { fill-color: purple; text-size: 20px; size: 20px; }"
+            String css = "node { fill-color: yellow; text-size: 20px; size: 20px; }"
                         + "edge { text-size: 15px; text-offset: 0,-10; }";
             graph.addAttribute("ui.stylesheet", css);
             graph.addAttribute("ui.quality");
             graph.addAttribute("ui.antialias");
-            graph.display();
+            Viewer viewer = graph.display();
+            viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
             
             }else {
             JOptionPane.showMessageDialog(null,"El grafo no tiene información!");  
         }      
     }//GEN-LAST:event_MostrarRelacionesActionPerformed
+    /**
+     * Este método despliega la ventana 2, encargada de mostrar las islas utilizando recorrido en anchura
+     * 
+     */
+    private void BFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFSActionPerformed
+        Ventana2 v2 = new Ventana2();
+        v2.setVisible(true);
+        v2.bfs();
+    }//GEN-LAST:event_BFSActionPerformed
+    /**
+     * Este método despliega la ventana 2, encargada de mostrar los almacenes utilizando recorrido en profundidad
+     * 
+     */
+    private void DFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DFSActionPerformed
+        Ventana3 v3 = new Ventana3();
+        v3.setVisible(true);
+        v3.Dfs();
+    }//GEN-LAST:event_DFSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,14 +281,20 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu archivos;
     private javax.swing.JMenuItem cargarArchivo;
     private javax.swing.JMenu editarRelaciones;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu mostrarIslas;
     private javax.swing.JMenu mostrarRelaciones;
     private javax.swing.JMenu puentes;
     // End of variables declaration//GEN-END:variables
-
+    
+     /**
+     * Este método permite que se despliegue el JFileChooser y además, lee el archivo seleccionado
+     * @return grafo que contiene la información de los usuarios y las relaciones de amistad que se obtuvo del txt
+     */
     private Grafo openFile() {
     String aux = "";   
     String text = "";

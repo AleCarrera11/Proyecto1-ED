@@ -5,8 +5,8 @@
 package Estructuras;
 
 /**
- *
- * @author usuario
+ * Esta clase representa La estructura de cola
+ * @author alejandra
  * @param <T>
  */
 public class Queue <T> {
@@ -116,7 +116,7 @@ public class Queue <T> {
     * @return 
     * @retun T la informacion del nodo al inicio de la cola
     */
-    public T consult() { /////Noso porque lo tengo que castear
+    public T consult() { 
         return (T) getHead().getData();
     }
     

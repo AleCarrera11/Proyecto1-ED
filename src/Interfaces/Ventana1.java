@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Esta clase maneja todas las funcionalidades de la ventana 1, que se encarga de guardar la información que fue leída exitosamente del txt
- * @author paola
+ * @author alejandra
  */
 public class Ventana1 extends javax.swing.JFrame {
 

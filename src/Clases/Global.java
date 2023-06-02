@@ -10,7 +10,7 @@ import Estructuras.User;
 
 /**
  * Esta clase maneja algunos atributos que son necesarios acceder múltiples veces a lo largo del proyecto
- * @author alejandra
+ * @author alejandra, isabela, adrian
  */
 
 public class Global {
