@@ -43,7 +43,9 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         archivos = new javax.swing.JMenu();
         cargarArchivo = new javax.swing.JMenuItem();
@@ -63,8 +65,20 @@ public class Menu extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 60, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/redes.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 550, 360));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagen/Proyecto EDD (2).png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, -10, 570, 340));
+
+        jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("BeConnected.");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 370));
 
         archivos.setText("Archivos");
         archivos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -186,7 +200,7 @@ public class Menu extends javax.swing.JFrame {
                 String a = user.getElement(i).getId();
                 graph.addNode(a);
                 graph.getNode(a).setAttribute("ui.label", user.getElement(i).getId());
-                graph.getNode(a).setAttribute("ui.style"," text-size: 15px; text-offset: 50px, 0px;");
+                graph.getNode(a).setAttribute("ui.style"," text-size: 20px; text-offset: 50px, 0px;");
                
             }
             
@@ -198,7 +212,7 @@ public class Menu extends javax.swing.JFrame {
                 }
             }    
             
-            String css = "node { fill-color: purple; text-size: 20px; size: 20px; }"
+            String css = "node { fill-color: yellow; text-size: 20px; size: 20px; }"
                         + "edge { text-size: 15px; text-offset: 0,-10; }";
             graph.addAttribute("ui.stylesheet", css);
             graph.addAttribute("ui.quality");
@@ -267,9 +281,11 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu archivos;
     private javax.swing.JMenuItem cargarArchivo;
     private javax.swing.JMenu editarRelaciones;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu mostrarIslas;
     private javax.swing.JMenu mostrarRelaciones;
     private javax.swing.JMenu puentes;
