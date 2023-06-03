@@ -239,7 +239,67 @@ public class Grafo {
          
         return contadorIslas;
     }
+     
+     
+     
+     public List<String> buscarPuentes() {
+        boolean[] visitado = new boolean[nVertices];
+        int contadorIslas = 0;
+        int[] tiempoDescubrimiento = new int[nVertices];
+        int[] tiempoBajo = new int[nVertices];
+        int tiempoActual = 0;
+        List<String> puentes = new List<>();
+        for (int i = 1; i < nVertices; ++i) {
+            if (!visitado[i]) {
+                // Si el vértice no ha sido visitado
+                contadorIslas++;
+                // Visitar la isla utilizando el recorrido por anchura
+                Queue<Integer> cola = new Queue<>();
+                visitado[i] = true;
+                tiempoDescubrimiento[i] = tiempoActual++;
+                cola.enqueue(i);
+                while (!cola.isEmpty()) {
+                    int v = cola.despachar();
+                    for (int j = 0; j < nVertices; ++j) {
+                        if (matriz[v][j] != 0) {
+                            if (!visitado[j]) {
+                                visitado[j] = true;
+                                tiempoDescubrimiento[j] = tiempoActual++;
+                                tiempoBajo[j] = tiempoDescubrimiento[j];
+                                cola.enqueue(j);
+                            } else if (tiempoDescubrimiento[j] < tiempoDescubrimiento[v] && visitado[j]) {
+                                tiempoBajo[v] = min(tiempoBajo[v], tiempoDescubrimiento[j]);
+                            } else if (j != v && tiempoDescubrimiento[j] > tiempoDescubrimiento[v]) {
+                                tiempoBajo[v] = min(tiempoBajo[v], tiempoBajo[j]);
+                                if (tiempoBajo[j] > tiempoDescubrimiento[v]) {
+                                    String puente = (v) + "-" + (j);
+                                    puentes.insertLast(puente);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return puentes;
+    }
     
+     public int min(int a, int b) {
+        if (a < b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
+    public int max(int a, int b) {
+        if (a > b) {
+            return a;
+        } else {
+            return b;
+        }
+    }
+
     /**
     * Imprime las islas que se recorrieron por anchura
     * Metodo que permite obtener la informacion de cada nodo en las islas que hay, por recorrido en anchura de un grafo
@@ -268,7 +328,54 @@ public class Grafo {
                         }
                     }
                 }
-               
+                }
+            }
+            return printBfs;
+        }
+    
+    public String printPuentes(){
+        boolean[] visitado = new boolean[nVertices];
+        String printBfs = "";
+        int contadorIslas = 0;
+        for (int i = 1; i < nVertices; ++i) {
+            if (!visitado[i]) {
+                int tiempoActual = 0;
+                contadorIslas++;
+                Queue<Integer> cola = new Queue<>();
+                visitado[i] = true;
+                int[] tiempoDescubrimiento = new int[nVertices];
+                int[] tiempoBajo = new int[nVertices];
+                tiempoDescubrimiento[i] = tiempoActual++;
+                cola.enqueue(i);
+                boolean hayPuentes = false;
+                String puentes = "";
+                while (!cola.isEmpty()) {
+                    int v = cola.despachar();
+                    for (int j = 0; j < nVertices; ++j) {
+                        if (matriz[v][j] != 0) {
+                            if (!visitado[j]) {
+                                visitado[j] = true;
+                                tiempoDescubrimiento[j] = tiempoActual++;
+                                tiempoBajo[j] = tiempoDescubrimiento[j];
+                                cola.enqueue(j);
+                            } else if (tiempoDescubrimiento[j] < tiempoDescubrimiento[v] && visitado[j]) {
+                                tiempoBajo[v] = min(tiempoBajo[v], tiempoDescubrimiento[j]);
+                            } else if (j != v && tiempoDescubrimiento[j] > tiempoDescubrimiento[v]) {
+                                tiempoBajo[v] = min(tiempoBajo[v], tiempoBajo[j]);
+                                if (tiempoBajo[j] > tiempoDescubrimiento[v]) {
+                                    if (puentes.isEmpty()) {
+                                        puentes += "Puentes en la Isla " + contadorIslas + ":\n";
+                                    }
+                                    puentes += v + "-" + j + "\n";
+                                    hayPuentes = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (hayPuentes) {
+                    printBfs += puentes;
+                }
             }
         }
         return printBfs;

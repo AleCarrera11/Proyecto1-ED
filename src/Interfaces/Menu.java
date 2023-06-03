@@ -148,6 +148,16 @@ public class Menu extends javax.swing.JFrame {
 
         puentes.setText("Puentes");
         puentes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        puentes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                puentesMouseClicked(evt);
+            }
+        });
+        puentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                puentesActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(puentes);
 
         editarRelaciones.setText("Editar Relaciones");
@@ -260,6 +270,17 @@ public class Menu extends javax.swing.JFrame {
     private void añadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_añadirUsuarioActionPerformed
+
+    private void puentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puentesActionPerformed
+        Ventana4 v4 = new Ventana4();
+        v4.setVisible(true);
+    }//GEN-LAST:event_puentesActionPerformed
+
+    private void puentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_puentesMouseClicked
+        Ventana4 v4 = new Ventana4();
+        v4.setVisible(true);
+        v4.buscarPuentes();
+    }//GEN-LAST:event_puentesMouseClicked
 
     /**
      * @param args the command line arguments
