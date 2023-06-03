@@ -78,7 +78,7 @@ public class Menu extends javax.swing.JFrame {
         jLabel1.setText("BeConnected.");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 370));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 390));
 
         archivos.setText("Archivos");
         archivos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
