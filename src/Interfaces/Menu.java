@@ -58,6 +58,8 @@ public class Menu extends javax.swing.JFrame {
         DFS = new javax.swing.JMenuItem();
         puentes = new javax.swing.JMenu();
         editarRelaciones = new javax.swing.JMenu();
+        añadirUsuario = new javax.swing.JMenuItem();
+        eliminarUsuario = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -150,6 +152,18 @@ public class Menu extends javax.swing.JFrame {
 
         editarRelaciones.setText("Editar Relaciones");
         editarRelaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        añadirUsuario.setText("Añadir usuario");
+        añadirUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                añadirUsuarioActionPerformed(evt);
+            }
+        });
+        editarRelaciones.add(añadirUsuario);
+
+        eliminarUsuario.setText("Eliminar usuario");
+        editarRelaciones.add(eliminarUsuario);
+
         jMenuBar1.add(editarRelaciones);
 
         setJMenuBar(jMenuBar1);
@@ -243,6 +257,10 @@ public class Menu extends javax.swing.JFrame {
         v3.Dfs();
     }//GEN-LAST:event_DFSActionPerformed
 
+    private void añadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_añadirUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -279,8 +297,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem actualizarArchivo;
     private javax.swing.JMenuItem archivoDefault;
     private javax.swing.JMenu archivos;
+    private javax.swing.JMenuItem añadirUsuario;
     private javax.swing.JMenuItem cargarArchivo;
     private javax.swing.JMenu editarRelaciones;
+    private javax.swing.JMenuItem eliminarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
