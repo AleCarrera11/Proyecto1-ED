@@ -258,7 +258,7 @@ public class Menu extends javax.swing.JFrame {
         v2.bfs();
     }//GEN-LAST:event_BFSActionPerformed
     /**
-     * Este método despliega la ventana 2, encargada de mostrar los almacenes utilizando recorrido en profundidad
+     * Este método despliega la ventana 2, encargada de mostrar las islas utilizando recorrido en profundidad
      * 
      */
     private void DFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DFSActionPerformed
@@ -271,11 +271,19 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_añadirUsuarioActionPerformed
 
+    /**
+     * Este método despliega la ventana 4, encargada de mostrar los puentes
+     * 
+     */    
     private void puentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puentesActionPerformed
         Ventana4 v4 = new Ventana4();
         v4.setVisible(true);
     }//GEN-LAST:event_puentesActionPerformed
-
+    
+    /**
+     * Este método despliega la ventana 4, encargada de mostrar los puentes
+     * 
+     */
     private void puentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_puentesMouseClicked
         Ventana4 v4 = new Ventana4();
         v4.setVisible(true);

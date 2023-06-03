@@ -55,7 +55,11 @@ public class txt {
         }
     } 
     
-        
+    /**
+    Lee un archivo de texto que contiene información sobre usuarios y crea un grafo a partir de ella.
+    @return el grafo creado a partir del archivo de texto
+    @throws IOException si hay un error al leer el archivo
+    */    
     public static Grafo readTxt(){
         String line;
         String infoTxt = "";
@@ -85,6 +89,11 @@ public class txt {
         return null;
    }
    
+    /**
+    Crea un objeto de usuario a partir de una cadena de información.
+    @param info la cadena de información que contiene los datos del usuario en formato "nombre,correo"
+    @return el objeto de usuario creado a partir de la cadena de información
+    */
     public static User readUser(String info){
         String[] data = info.split(",");
         User user = new User(data[0], data[1]);

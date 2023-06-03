@@ -10,12 +10,18 @@ import Estructuras.List;
  *
  * @author adrianlovera
  */
+/**
+Representa un vértice en un grafo.
+*/
 public class Vertice {
     String nombre;
     int numVertice;
     List<Object> lad;
     
-    
+    /**
+    Crea un nuevo vértice con el nombre especificado.
+    @param x el nombre del vértice
+    */
     public Vertice(String x) {
         nombre = x;
         numVertice = -1;

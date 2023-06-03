@@ -4,6 +4,7 @@
  */
 package Estructuras;
 
+import static Clases.Global.getUser;
 import javax.swing.JOptionPane;
 
      /**
@@ -21,7 +22,7 @@ public class Grafo {
      
     /**
     * Constructor del grafo
-    * @param max Represeta el numero de vertices maximo
+    * @param max Representa el numero de vertices maximo
     * @param user Representa una lista de usuarios 
     * @param relation Representa las relaciones entre los usuarios, traidas del txt
     */
@@ -195,6 +196,21 @@ public class Grafo {
     }
     
     /**
+    Devuelve el nombre de usuario del vértice en el índice especificado.
+    @param index el índice del vértice cuyo nombre de usuario se desea obtener
+    @return el nombre de usuario del vértice en el índice especificado
+    */
+        public String username(int index){
+        String a = "";
+        for(int i = 0; i < vertices.getLength(); i++){
+            if(index == i){
+                a += vertices.getElement(i).getUser();
+            }
+        }
+        return a ;
+    }
+    
+    /**
     * Imprimri Matriz
     * Metodo que permite Imprimir la matriz de adyacencia
     */
@@ -241,7 +257,10 @@ public class Grafo {
     }
      
      
-     
+    /**
+    Método para buscar los puentes en un grafo utilizando el algoritmo de recorrido en anchura.
+    @return una lista de strings que representa los puentes encontrados en el grafo.
+    */
      public List<String> buscarPuentes() {
         boolean[] visitado = new boolean[nVertices];
         int contadorIslas = 0;
@@ -272,7 +291,7 @@ public class Grafo {
                             } else if (j != v && tiempoDescubrimiento[j] > tiempoDescubrimiento[v]) {
                                 tiempoBajo[v] = min(tiempoBajo[v], tiempoBajo[j]);
                                 if (tiempoBajo[j] > tiempoDescubrimiento[v]) {
-                                    String puente = (v) + "-" + (j);
+                                    String puente = (getNameUser(v)) + "-" + (getNameUser(j));
                                     puentes.insertLast(puente);
                                 }
                             }
@@ -284,6 +303,12 @@ public class Grafo {
         return puentes;
     }
     
+    /**
+    Devuelve el valor mínimo entre dos números enteros.
+    @param a el primer número entero
+    @param b el segundo número entero
+    @return el valor mínimo entre a y b
+    */
      public int min(int a, int b) {
         if (a < b) {
             return a;
@@ -291,7 +316,13 @@ public class Grafo {
             return b;
         }
     }
-
+     
+    /**
+    Devuelve el valor máximo entre dos números enteros.
+    @param a el primer número entero
+    @param b el segundo número entero
+    @return el valor máximo entre a y b
+    */
     public int max(int a, int b) {
         if (a > b) {
             return a;
@@ -333,6 +364,10 @@ public class Grafo {
             return printBfs;
         }
     
+    /**
+    Devuelve una cadena que representa los puentes en el grafo de islas.
+    @return una cadena que representa los puentes en el grafo de islas
+    */
     public String printPuentes(){
         boolean[] visitado = new boolean[nVertices];
         String printBfs = "";
@@ -366,7 +401,7 @@ public class Grafo {
                                     if (puentes.isEmpty()) {
                                         puentes += "Puentes en la Isla " + contadorIslas + ":\n";
                                     }
-                                    puentes += v + "-" + j + "\n";
+                                    puentes += username(v) + "-" + username(j) + "\n";
                                     hayPuentes = true;
                                 }
                             }

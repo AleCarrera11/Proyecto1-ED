@@ -86,7 +86,8 @@ public class Ventana4 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     /**
-    * Este método muestra la cantidad de islas que hay recorridas en profundidad del grafo y agrega en el TextArea la informacion recorrida
+    Busca los puentes en el grafo y muestra la información sobre ellos en un área de texto.
+    @throws NullPointerException si no hay un grafo disponible en la aplicación
     */
     public void buscarPuentes(){    
         if (Global.getGrafo() != null){
