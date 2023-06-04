@@ -143,7 +143,6 @@ public class TXT extends javax.swing.JFrame {
        Grafo grafo = openFile();
         if (grafo != null){
             grafo.readRelation();
-            grafo.printMatrix();
             Global.setGrafo(grafo);
         }
         Menu menu = new Menu();

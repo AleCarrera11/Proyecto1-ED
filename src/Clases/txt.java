@@ -8,8 +8,11 @@ import Estructuras.Grafo;
 import Estructuras.List;
 import Estructuras.User;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
@@ -46,7 +49,7 @@ public class txt {
         }
         
         try{
-            PrintWriter pw = new PrintWriter("test\\usuario.txt");
+            PrintWriter pw = new PrintWriter("test\\usuarios.txt");
             pw.print(userTxt); // escribe
             pw.close();
             JOptionPane.showMessageDialog(null,"Guardado realizado exitosamente");
@@ -131,5 +134,67 @@ public class txt {
         }
         return grafo;
     }
+    
+    public static void removeUser(String filePath, String userName) {
+        try (BufferedReader br = new BufferedReader(new FileReader(new File(filePath)))) {
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = br.readLine()) != null) {
+                if (!line.contains(userName)) {
+                    sb.append(line).append("\n");
+                }
+            }
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(new File(filePath)))) {
+                bw.write(sb.toString());
+            }
+        } catch (IOException e) {
+        }
+    }
+    
+    public static void agregarUser(Grafo grafo, User user) {
+    // Obtener la información actual del grafo
+    List<User> info = grafo.getVertices();
+    int[][] matriz = grafo.getMatriz();
+
+    // Crear un StringBuilder para construir el nuevo contenido del archivo
+    StringBuilder sb = new StringBuilder();
+
+    // Agregar los usuarios existentes al StringBuilder
+    sb.append("Usuarios\n");
+    for (int i = 0; i < info.getLength(); i++) {
+        sb.append(info.getElement(i).getId()).append(",").append(info.getElement(i).getUser()).append("\n");
+    }
+
+    // Agregar el nuevo usuario al StringBuilder
+    sb.append(user.getId()).append(",  ").append(user.getUser()).append("\n");
+
+    // Agregar las relaciones existentes al StringBuilder
+    sb.append("Relaciones\n");
+    for (int i = 0; i < matriz.length; i++) {
+        for (int j = i; j < matriz.length; j++) {
+            if (matriz[i][j] != 0) {
+                String a = grafo.getNameUser(i);
+                String b = grafo.getNameUser(j);
+                if (!"".equals(a) && !"".equals(b)) {
+                    sb.append(a).append(", ").append(b).append(", ").append(matriz[i][j]).append("\n");
+                }
+            }
+        }
+    }
+
+    // Agregar las nuevas relaciones al StringBuilder
+    String a = grafo.getNameUser(info.getLength());
+    String b = user.getUser();
+    int peso = 6;
+    sb.append(a).append(", ").append(b).append(", ").append(peso).append("\n");
+
+    // Escribir el contenido del StringBuilder en el archivo
+    try (PrintWriter pw = new PrintWriter(new FileWriter("test/usuario.txt"))) {
+        pw.print(sb.toString());
+    } catch (IOException e) {
+    }
+}
+
+ 
 }
     

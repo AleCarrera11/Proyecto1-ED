@@ -5,6 +5,8 @@
 package Interfaces;
 import Clases.TextoPredeterminado;
 import Clases.Global;
+import Clases.txt;
+import static Clases.txt.agregarUser;
 import Estructuras.Grafo;
 import Estructuras.List;
 import Estructuras.User;
@@ -298,15 +300,18 @@ public class EditarRelaciones extends javax.swing.JFrame {
         }
         else {
             String nombreNewUsuario = TextoUsuario.getText();
-            String[] parts = nombreNewUsuario.split(", ");
-            
+            String[] parts = nombreNewUsuario.split(",");
+            Grafo grafo = Global.getGrafo();
+            List<User> lista_usuarios = grafo.getVertices();
             String rels = TextoRelaciones.getText();
             if (validationRelation(rels)){
                 User user = new User(parts[0], parts[1]);
                 Global.getGrafo().addVertice(user, rels);
                 JOptionPane.showMessageDialog(null, "Usuario agregado con exito");
+                agregarUser(grafo, user);
+                
             }else{
-                JOptionPane.showMessageDialog(null, "Las relaciones no fueron ingresadas correctamente");
+                JOptionPane.showMessageDialog(null, "Las relaciones no fueron ingresadas correctamente. El formato debe ser Ej. 121, 254, 4");
             }
         
     }//GEN-LAST:event_BotonAgregarActionPerformed
@@ -323,7 +328,9 @@ public class EditarRelaciones extends javax.swing.JFrame {
         List<User> lista_usuarios = grafo.getVertices();
         int indice = grafo.getIndex(id);
         grafo.eliminarVertice( indice);
-//        lista_usuarios.deleteIndex(indice);
+        txt.removeUser("test\\usuario.txt", id);
+        txt.removeUser("test\\usuario.txt", id);
+//        lista_usuarios.deleteIndex(indice); No se elimina el usuario como tal 
         JOptionPane.showMessageDialog(null, "Usuario eliminado");
         JOptionPane.showMessageDialog(null, "Recuerde actualizar el repositorio para ver los cambios reflejados\n Archivos -> Actualizar archivo");
         
