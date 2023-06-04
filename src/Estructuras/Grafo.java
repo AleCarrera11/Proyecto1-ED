@@ -78,6 +78,4 @@ public class Grafo {
     public void setRelation(String[] relation) {
         this.relation = relation;
     }
-    
-    
 }
