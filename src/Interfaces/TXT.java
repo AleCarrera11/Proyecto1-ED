@@ -138,6 +138,7 @@ public class TXT extends javax.swing.JFrame {
         Global.setGrafo(grafo);
         Menu menu = new Menu();
         menu.setVisible(true);
+        this.setVisible(false);
         
     }//GEN-LAST:event_ArchivoDefaultActionPerformed
     /**
@@ -152,6 +153,7 @@ public class TXT extends javax.swing.JFrame {
         }
         Menu menu = new Menu();
         menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_SubirArchivoActionPerformed
 
     /**

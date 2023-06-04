@@ -57,9 +57,9 @@ public class Menu extends javax.swing.JFrame {
         BFS = new javax.swing.JMenuItem();
         DFS = new javax.swing.JMenuItem();
         puentes = new javax.swing.JMenu();
+        mostrarPuentes = new javax.swing.JMenuItem();
         editarRelaciones = new javax.swing.JMenu();
-        añadirUsuario = new javax.swing.JMenuItem();
-        eliminarUsuario = new javax.swing.JMenuItem();
+        editRelaciones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -148,21 +148,27 @@ public class Menu extends javax.swing.JFrame {
 
         puentes.setText("Puentes");
         puentes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
+        mostrarPuentes.setText("Mostrar puentes");
+        mostrarPuentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarPuentesActionPerformed(evt);
+            }
+        });
+        puentes.add(mostrarPuentes);
+
         jMenuBar1.add(puentes);
 
         editarRelaciones.setText("Editar Relaciones");
         editarRelaciones.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
-        añadirUsuario.setText("Añadir usuario");
-        añadirUsuario.addActionListener(new java.awt.event.ActionListener() {
+        editRelaciones.setText("Editar relaciones");
+        editRelaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                añadirUsuarioActionPerformed(evt);
+                editRelacionesActionPerformed(evt);
             }
         });
-        editarRelaciones.add(añadirUsuario);
-
-        eliminarUsuario.setText("Eliminar usuario");
-        editarRelaciones.add(eliminarUsuario);
+        editarRelaciones.add(editRelaciones);
 
         jMenuBar1.add(editarRelaciones);
 
@@ -206,9 +212,10 @@ public class Menu extends javax.swing.JFrame {
     private void MostrarRelacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarRelacionesActionPerformed
         
         System.setProperty("org.graphstream.ui", "javafx");
-        
+        System.out.println("Hay un peo");
         Graph graph = new SingleGraph("Grafo");
         List <User> user = Global.getGrafo().getVertices();
+        System.out.println("no esta entrando aqui");
         if (Global.getGrafo()!= null){
             for (int i = 0; i < Global.getGrafo().getnVertices(); i++) {
                 String a = user.getElement(i).getId();
@@ -256,11 +263,21 @@ public class Menu extends javax.swing.JFrame {
         v3.setVisible(true);
         v3.Dfs();
     }//GEN-LAST:event_DFSActionPerformed
+   /**
+     * Este método despliega la ventana 4, encargada de mostrar los puentes
+     * 
+     */   
+    private void mostrarPuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarPuentesActionPerformed
+        Ventana4 v4 = new Ventana4();
+        v4.setVisible(true);
+        v4.buscarPuentes();
+    }//GEN-LAST:event_mostrarPuentesActionPerformed
 
-    private void añadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_añadirUsuarioActionPerformed
-
+    private void editRelacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editRelacionesActionPerformed
+        EditarRelaciones edit = new EditarRelaciones();
+        edit.setVisible(true);
+    }//GEN-LAST:event_editRelacionesActionPerformed
+    
     /**
      * @param args the command line arguments
      */
@@ -297,16 +314,16 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem actualizarArchivo;
     private javax.swing.JMenuItem archivoDefault;
     private javax.swing.JMenu archivos;
-    private javax.swing.JMenuItem añadirUsuario;
     private javax.swing.JMenuItem cargarArchivo;
+    private javax.swing.JMenuItem editRelaciones;
     private javax.swing.JMenu editarRelaciones;
-    private javax.swing.JMenuItem eliminarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu mostrarIslas;
+    private javax.swing.JMenuItem mostrarPuentes;
     private javax.swing.JMenu mostrarRelaciones;
     private javax.swing.JMenu puentes;
     // End of variables declaration//GEN-END:variables

@@ -239,7 +239,7 @@ public class Grafo {
          
         return contadorIslas;
     }
-    
+
     /**
     * Imprime las islas que se recorrieron por anchura
     * Metodo que permite obtener la informacion de cada nodo en las islas que hay, por recorrido en anchura de un grafo
@@ -329,9 +329,97 @@ public class Grafo {
                 printDfs += vertices.getElement(((Integer)(aux.getData()))).getId()+ "," +vertices.getElement(((Integer)(aux.getData()))).getUser() + "\n";
                 aux = aux.getNext();
             }
-//            printDfs += vertices.getElement(((Integer)(island.getHead().getData()))).getId()+ "," +vertices.getElement(((Integer)(island.getHead().getData()))).getUser() + "\n";
         }
         return printDfs;
     }
+    
+     /**
+    * Metodo que permite obtener un arreglo de la cantidad de puentes que hay por recorrido en anchura de un grafo
+    * @return retorna la cantidad de puentes que hay
+    */ 
+    public int contarPuentes() {
+        int puentes = 0;
+        int n = matriz.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+                if (matriz[i][j] != 0) {
+                    int relation = matriz[i][j];
+                    int islas1 = Bfs();
+                    matriz[i][j] = matriz[j][i] = 0;
+                    int islas = Bfs();
+                    if (islas1 < islas ) {
+                        puentes++;
+                    }
+                    matriz[i][j] = matriz[j][i] = relation;
+                }
+            }
+        }
+        return puentes;
+    }
+    
+    /**
+    * Imprime los puentes que hay en el grafo
+    * Metodo que permite obtener la informacion de los usuarios que forman puentes
+    * @return retorna el Id de ambos usuarios que forman el puente  
+    */
+    public String printPuentes() {
+        String userPuentes = "Usuarios puente:\n";
+        int n = matriz.length;
+        for (int i = 0; i < n; i++) {
+            for (int j = i+1; j < n; j++) {
+                if (matriz[i][j] != 0) {
+                    int relation = matriz[i][j];
+                    int islas1 = Bfs();
+                    matriz[i][j] = matriz[j][i] = 0;
+                    int islas = Bfs();
+                    System.out.println(islas1 + "-" + islas);
+                    if (islas1 < islas ) {
+                        userPuentes += vertices.getElement(i).getId() + "-" + vertices.getElement(j).getId()+ "\n";
+                    }
+                    matriz[i][j] = matriz[j][i] = relation;
+                }
+            }
+        }
+        return userPuentes;
+    }
+    
+    /**
+     *modifica la matriz de adyacencia original para eliminar el vértice especificado
+     * @param vertice
+     */
+    public void eliminarVertice( int vertice) {
+    int n = matriz.length;
+
+    for (int i = 0; i < n; i++) {
+        matriz[vertice][i] = 0;
+        matriz[i][vertice] = 0;
+        }
+    }
+    
+    /**
+    * Agregar un Usuario
+    * Metodo que permite agregar un Usuario y su relacion con otros
+     * @param user nodo usuario con su id y user
+     * @param relation información sobre la relacion, tanto los id de los usuarios como el tiempo de amistad
+    */
+    public void addVertice(User user, String relation){//Despues de hacer toda la verificacion es string o Antes
+        int[][] matriztemp = new int[maxVertices + 1][maxVertices + 1];
+        for (int i = 0; i< maxVertices; i++){
+            for (int j = 0; j< maxVertices; j++){
+                if(this.matriz[i][j] != 0){
+                    matriztemp[i][j] = this.matriz[i][j];
+                }else{
+                    matriztemp[i][j] = 0;
+                    
+                }
+            }
+        }
+        this.matriz = matriztemp;
+        this.maxVertices++;
+        this.nVertices++;
+        vertices.insertLast(user);
+        addRelation(relation);
+    }
+    
 }
     

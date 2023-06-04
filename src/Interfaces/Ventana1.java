@@ -78,6 +78,7 @@ public class Ventana1 extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
         if (Global.getGrafo()!= null){
             txt.writeTxt(Global.getGrafo());
+            this.setVisible(false);
         } else {
             JOptionPane.showMessageDialog(null,"El grafo no tiene información!");  
         }
