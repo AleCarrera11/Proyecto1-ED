@@ -212,10 +212,8 @@ public class Menu extends javax.swing.JFrame {
     private void MostrarRelacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarRelacionesActionPerformed
         
         System.setProperty("org.graphstream.ui", "javafx");
-        System.out.println("Hay un peo");
         Graph graph = new SingleGraph("Grafo");
         List <User> user = Global.getGrafo().getVertices();
-        System.out.println("no esta entrando aqui");
         if (Global.getGrafo()!= null){
             for (int i = 0; i < Global.getGrafo().getnVertices(); i++) {
                 String a = user.getElement(i).getId();

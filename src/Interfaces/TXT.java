@@ -129,12 +129,7 @@ public class TXT extends javax.swing.JFrame {
      */
     private void ArchivoDefaultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArchivoDefaultActionPerformed
         Grafo grafo = txt.readTxt();
-        grafo.readRelation();
-//        grafo.printMatrix();
-//        System.out.println(grafo.Bfs());
-//        System.out.println(grafo.printBfs());
-//        System.out.println(grafo.countDfs());
-        System.out.println(grafo.printDfs());               
+        grafo.readRelation();          
         Global.setGrafo(grafo);
         Menu menu = new Menu();
         menu.setVisible(true);

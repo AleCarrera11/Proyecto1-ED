@@ -217,9 +217,7 @@ public class Grafo {
         int contadorIslas = 0;
         for (int i = 1; i < (nVertices ); ++i) {
             if (!visitado[i]) {
-                // Si el vértice no ha sido visitado
                 contadorIslas++;
-                // Visitar la isla utilizando el recorrido por anchura
                 Queue <Integer> cola = new Queue();
                 
                 visitado[i] = true;
@@ -372,7 +370,6 @@ public class Grafo {
                     int islas1 = Bfs();
                     matriz[i][j] = matriz[j][i] = 0;
                     int islas = Bfs();
-                    System.out.println(islas1 + "-" + islas);
                     if (islas1 < islas ) {
                         userPuentes += vertices.getElement(i).getId() + "-" + vertices.getElement(j).getId()+ "\n";
                     }
